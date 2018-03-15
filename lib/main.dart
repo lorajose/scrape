@@ -1,6 +1,7 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:scrape/new_page.dart';
 
 void main()=> runApp(new MyApp());
 
@@ -9,11 +10,14 @@ class MyApp extends StatelessWidget{
   Widget build(BuildContext context) {
     return new MaterialApp(
       theme: new ThemeData(
-        primarySwatch: Colors.blueGrey
+        primarySwatch: Colors.deepPurple,
+        primaryColor: defaultTargetPlatform == TargetPlatform.iOS ? Colors.grey[50] : null
       ),//ThemeData
       home: new HomePage(),
+      routes: <String, WidgetBuilder>{
+       // "/a": (BuildContext context) => new NewPage("New Page"),  cambio......
+       }//NewPage
     );//MaterialApp
-
   }
 }
 
@@ -36,12 +40,12 @@ class HomePage extends StatelessWidget{
               accountName: new Text("Usuario Name"),
               accountEmail: new Text("Moneda : 100US"),
               currentAccountPicture: new CircleAvatar(
-                backgroundColor: Colors.grey,
-                child: new Text("UN"),
+                  backgroundColor: Theme.of(context).platform == TargetPlatform.iOS ? Colors.grey : Colors.deepPurple,
+                  child: new Text("UN"),
               ),//CircleAvatar
               otherAccountsPictures: <Widget>[
                 new CircleAvatar(
-                  backgroundColor: Colors.grey,
+                  backgroundColor: Theme.of(context).platform == TargetPlatform.iOS ?  Colors.grey : Colors.deepPurple,
                   child: new Text("U"),
                  ),
               ],//OtherCircleAvatar
@@ -50,29 +54,52 @@ class HomePage extends StatelessWidget{
             //ListTile menu
             new ListTile(
               title: new Text("Change Money"),
-              trailing: new Icon(Icons.monetization_on)
-            ),//ListTitle 1
+              trailing: new Icon(Icons.monetization_on),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) =>
+                new NewPage("Change Money"))); //MaterialpageRoute Change Money
+              }
+            ), //ListTitle 1
 
             new ListTile(
                 title: new Text("Transfers"),
-                trailing: new Icon(Icons.transfer_within_a_station)
-            ),//ListTitle 2
+                trailing: new Icon(Icons.transfer_within_a_station),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) =>
+                  new NewPage("Transfers"))); //MaterialpageRoute  Transfers
+                }
+            ), //ListTitle 2
 
             new ListTile(
                 title: new Text("Scrape"),
-                trailing: new Icon(Icons.screen_share)
-            ),//ListTitle 3
+                trailing: new Icon(Icons.screen_share),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) =>
+                  new NewPage("Scrape"))); //MaterialpageRoute Scrape
+                }
+            ),  //ListTitle 3
 
             new ListTile(
                 title: new Text("Setting"),
-                trailing: new Icon(Icons.settings)
-            ),//ListTitle 4
+                trailing: new Icon(Icons.settings),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) =>
+                  new NewPage("Setting"))); //MaterialpageRoute Setting
+                }
+            ), //ListTitle 4
 
             new ListTile(
                 title: new Text("Sing Out"),
                 trailing: new Icon(Icons.close),
-                onTap: ()=> Navigator.of(context).pop(),//LostTile
-            ),//ListTitle 3
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                }//LostTile
+            ), //ListTitle 3
 
           ],//Widget []
         ),//listview
